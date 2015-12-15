@@ -7,7 +7,7 @@ clc;
 %
 % Start Matlab parallel environment with the command matlabpool.
 %
-% (around 30' on a quadcore Intel Core-i7 2.9GHz PC for 5000 samples)
+% (around 15' on c4.8large Amazon instance)
 
 samples = 5000;
 
@@ -68,33 +68,6 @@ end
 for u=SMIvec
     SMIfrec(u) = SMIfrec(u) + 1;
 end
-
-h = figure;
-
-subplot(3,1,1);
-bar(N_B',SMIfrec'/samples,'r')
-hold on;
-plot(N_B,SMIfrec/samples,'ko--');
-grid on;
-title('SMI','Interpreter','latex','FontSize',12);
-
-subplot(3,1,2);
-bar(N_B',AMIfrec'/samples,'g')
-hold on;
-plot(N_B,AMIfrec/samples,'ko--');
-grid on;
-title('AMI','Interpreter','latex','FontSize',12);
-
-ylabel('Probability of selection','Interpreter','latex','FontSize',12);
-
-subplot(3,1,3);
-bar(N_B',MIfrec'/samples,'w');
-hold on;
-plot(N_B, MIfrec/samples,'ko--');
-grid on;
-title('MI','Interpreter','latex','FontSize',12);
-
-xlabel('Number of records $N$','Interpreter','latex','FontSize',12);
 
 save('Experiment_4_2_results');
 disp('Results saved.');

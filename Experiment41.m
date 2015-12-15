@@ -7,14 +7,14 @@ clc;
 %
 % Start Matlab parallel environment with the command matlabpool.
 %
-% (around 2 weeks on a quadcore Intel Core-i7 2.9GHz PC for 5000 samples)
+% (around 30' on c4.8large Amazon instance)
 
 samples = 5000;
 
-c_B = [2:4:22]; % number of clusters in B
+c_B = [2:1:10]; % number of clusters in B
 
-N = 500; % Number of records
-r = 10; % number of clusters for the reference clustering
+N = 100; % Number of records
+r = 4; % number of clusters for the reference clustering
 
 AMIfrec = zeros(1,length(c_B));
 MIfrec = zeros(1,length(c_B));
@@ -65,33 +65,6 @@ end
 for u=SMIvec
     SMIfrec(u) = SMIfrec(u) + 1;
 end
-
-h = figure;
-
-subplot(3,1,1);
-bar(c_B',SMIfrec'/samples,'r')
-hold on;
-plot(c_B,SMIfrec/samples,'ko--');
-grid on;
-title('SMI','Interpreter','latex','FontSize',12);
-
-subplot(3,1,2);
-bar(c_B',AMIfrec'/samples,'g')
-hold on;
-plot(c_B,AMIfrec/samples,'ko--');
-grid on;
-title('AMI','Interpreter','latex','FontSize',12);
-
-ylabel('Probability of selection','Interpreter','latex','FontSize',12);
-
-subplot(3,1,3);
-bar(c_B',MIfrec'/samples,'w');
-hold on;
-plot(c_B, MIfrec/samples,'ko--');
-grid on;
-title('MI','Interpreter','latex','FontSize',12);
-
-xlabel('Number of clusters $c$ in $\mathbf{B}$','Interpreter','latex','FontSize',12);
 
 save('Experiment_4_1_results');
 disp('Results saved.');
